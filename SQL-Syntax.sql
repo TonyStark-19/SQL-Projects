@@ -59,7 +59,8 @@ CREATE TABLE
     );
 
 -- Default values
-salary INT DEFAULT 25000
+salary INT DEFAULT 25000;
+
 -- Constraint
 -- Check
 CREATE TABLE
@@ -218,8 +219,9 @@ GROUP BY
 HAVING
     condition
 ORDER BY
-    column (s) ASC / DESC
-    -- Update data
+    column (s) ASC / DESC;
+
+-- Update data
 UPDATE student
 SET
     grade = "O"
@@ -296,3 +298,151 @@ SELECT
     *
 FROM
     stu AS s;
+
+-- Left join
+SELECT
+    *
+FROM
+    stu
+    LEFT JOIN course ON stu.student_id = course.student_id;
+
+-- Right join
+SELECT
+    *
+FROM
+    stu
+    LEFT JOIN course ON stu.student_id = course.student_id;
+
+-- Full join
+SELECT
+    *
+FROM
+    stu AS a
+    LEFT JOIN course AS b ON a.student_id = b.student_id
+UNION
+SELECT
+    *
+FROM
+    stu AS a
+    RIGHT JOIN course AS b ON a.student_id = b.student_id;
+
+-- Left exclusive join
+SELECT
+    *
+FROM
+    stu AS a
+    LEFT JOIN course AS b ON a.student_id = b.student_id
+WHERE
+    b.student_id IS NULL;
+
+-- Right exclusive join
+SELECT
+    *
+FROM
+    stu AS a
+    RIGHT JOIN course AS b ON a.student_id = b.student_id
+WHERE
+    a.student_id IS NULL;
+
+-- Self join example
+CREATE TABLE
+    employee (
+        id INT PRIMARY KEY,
+        name VARCHAR(50),
+        manager_id INT
+    );
+
+INSERT INTO
+    employee (id, name, manager_id)
+VALUES
+    (101, "adam", 103),
+    (102, "bob", 104),
+    (103, "casey", NULL),
+    (104, "donald", 103);
+
+SELECT
+    a.name AS manager_name,
+    b.name
+FROM
+    employee AS a
+    JOIN employee AS b ON a.id = b.manager_id;
+
+-- Union ( no duplicate )
+SELECT
+    name
+FROM
+    employee
+UNION
+SELECT
+    name
+from
+    employee;
+
+-- Union all
+SELECT
+    name
+FROM
+    employee
+UNION ALL
+SELECT
+    name
+from
+    employee;
+
+-- Sub query
+-- example 1
+SELECT
+    name,
+    marks
+FROM
+    student
+WHERE
+    marks > (
+        SELECT
+            avg(marks)
+        FROM
+            student
+    );
+
+-- example 2
+SELECT
+    name,
+    rollno
+FROM
+    student
+WHERE
+    rollno IN (
+        SELECT
+            rollno
+        FROM
+            student
+        WHERE
+            rollno % 2 = 0
+    );
+
+-- example 3 (using FROM)
+SELECT
+    max(marks)
+FROM
+    (
+        SELECT
+            *
+        FROM
+            student
+        WHERE
+            city = "Delhi"
+    ) AS temp;
+
+-- View
+CREATE VIEW
+    view1 AS
+SELECT
+    rollno,
+    name
+FROM
+    student;
+
+SELECT
+    *
+FROM
+    view1;
