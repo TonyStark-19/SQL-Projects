@@ -446,3 +446,104 @@ SELECT
     *
 FROM
     view1;
+
+-- to close safe update option on MySQL
+SET
+    SQL_SAFE_UPDATES = 0;
+
+-- LIKE
+SELECT DISTINCT
+    city
+FROM
+    city
+WHERE
+    city LIKE 'a%'
+    OR city LIKE 'e%'
+    OR city LIKE 'i%'
+    OR city LIKE 'o%'
+    OR city LIKE 'u%';
+
+SELECT DISTINCT
+    city
+FROM
+    city
+WHERE
+    city NOT LIKE 'a%'
+    AND city NOT LIKE 'e%'
+    AND city NOT LIKE 'i%'
+    AND city NOT LIKE 'o%'
+    AND city NOT LIKE 'u%';
+
+SELECT DISTINCT
+    city
+FROM
+    city
+WHERE
+    city LIKE '%a'
+    OR city LIKE '%e'
+    OR city LIKE '%i'
+    OR city LIKE '%o'
+    OR city LIKE '%u';
+
+SELECT DISTINCT
+    city
+FROM
+    city
+WHERE
+    city LIKE 'a%a'
+    OR city LIKE 'e%e'
+    OR city LIKE 'i%i'
+    OR city LIKE 'o%o'
+    OR city LIKE 'u%u';
+
+-- Length function
+SELECT
+    city,
+    LENGTH (city)
+FROM
+    city
+WHERE
+    LENGTH (city) = (
+        SELECT
+            MAX(LENGTH (city))
+        FROM
+            city
+    )
+ORDER BY
+    city ASC
+LIMIT
+    1;
+
+-- Left
+SELECT
+    Name
+FROM
+    Student
+WHERE
+    ID IN (
+        SELECT
+            ID
+        FROM
+            Student
+        WHERE
+            Marks >= 75
+        ORDER BY
+            LEFT (Name, 3) ASC
+    );
+
+-- Right
+SELECT
+    Name
+FROM
+    Student
+WHERE
+    ID IN (
+        SELECT
+            ID
+        FROM
+            Student
+        WHERE
+            Marks >= 75
+        ORDER BY
+            RIGHT (Name, 3) ASC
+    );
