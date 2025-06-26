@@ -62,7 +62,7 @@ CREATE TABLE
 salary INT DEFAULT 25000;
 
 -- Constraint
--- Check
+-- Check example 1
 CREATE TABLE
     city (
         id INT PRIMARY KEY,
@@ -74,6 +74,7 @@ CREATE TABLE
         )
     );
 
+-- Check example 2
 CREATE TABLE
     newTab (age INT CHECK (age >= 18));
 
@@ -447,11 +448,12 @@ SELECT
 FROM
     view1;
 
--- to close safe update option on MySQL
+-- to close safe update option on MySQL for uptation and deletion
 SET
     SQL_SAFE_UPDATES = 0;
 
--- LIKE
+-- Logical LIKE Operator
+-- example 1 : starts with vowel
 SELECT DISTINCT
     city
 FROM
@@ -463,6 +465,7 @@ WHERE
     OR city LIKE 'o%'
     OR city LIKE 'u%';
 
+-- example 2 : does not starts with vowel
 SELECT DISTINCT
     city
 FROM
@@ -474,6 +477,7 @@ WHERE
     AND city NOT LIKE 'o%'
     AND city NOT LIKE 'u%';
 
+-- example 3 : end with vowel
 SELECT DISTINCT
     city
 FROM
@@ -485,6 +489,7 @@ WHERE
     OR city LIKE '%o'
     OR city LIKE '%u';
 
+-- example one : starts and ends with vowel
 SELECT DISTINCT
     city
 FROM
@@ -514,7 +519,7 @@ ORDER BY
 LIMIT
     1;
 
--- Left
+-- Left : for trimming a word from left side
 SELECT
     Name
 FROM
@@ -531,7 +536,7 @@ WHERE
             LEFT (Name, 3) ASC
     );
 
--- Right
+-- Right : for trimming a word from right side
 SELECT
     Name
 FROM
@@ -547,3 +552,6 @@ WHERE
         ORDER BY
             RIGHT (Name, 3) ASC
     );
+
+-- Round digits to 0,1,2,... decimal places
+SELECT ROUND(AVG(POPULATION) , 0) AS Population from CITY;
