@@ -554,4 +554,25 @@ WHERE
     );
 
 -- Round digits to 0,1,2,... decimal places
-SELECT ROUND(AVG(POPULATION) , 0) AS Population from CITY;
+SELECT
+    ROUND(AVG(POPULATION), 0) AS Population
+from
+    CITY;
+
+-- Floor is used to round digits to the nearest value
+SELECT
+    FLOOR(AVG(POPULATION)) AS Population
+from
+    CITY;
+
+-- IFNULL() function (to replace null value)
+SELECT
+    IFNULL (salary, 0)
+FROM
+    Office;
+
+-- COALESCE() function (same as IFNULL())
+SELECT
+    COALESCE(salary, 0)
+FROM
+    Office;
